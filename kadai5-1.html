@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="utf-8">
@@ -5,19 +6,41 @@
 </head>
 <body>
     <h1 id="msg">郵便番号API</h1>
-    <form name="apiform"><p>
-        郵便番号：<input type="text" name="zipcode">
-        <button type="button" id="btn1" onclick="zip_api(this.form)">実行</button>
-    </p></form>
+    <form name="apiform">
+        <p>
+            郵便番号：<input type="text" name="zipcode">
+            <button type="button" id="btn1" onclick="zip_api(this.form)">実行</button>
+        </p>
+    </form>
     
     <div id="result">結果はここに表示</div>
+
     <script>
         async function zip_api(myForm) {
             const endpoint = "https://zipcloud.ibsnet.co.jp/api/search";
-            // ここにコードを書く
-            // zipcloudのAPI呼び出して結果を表示する
-            document.getElementById("result").innerHTML =  myForm.zipcode.value; // 現状ではそのまま表示しているだけ
+            const zipcode = myForm.zipcode.value;
+
+            // APIのURLを作成
+            const url = `${endpoint}?zipcode=${zipcode}`;
+
+            try {
+                // APIを非同期で呼び出し
+                const response = await fetch(url);
+                const data = await response.json();
+
+                // 結果を解析して表示
+                if (data.results) {
+                    const address = data.results[0];
+                    const fullAddress = `${address.address1}${address.address2}${address.address3}`;
+                    document.getElementById("result").innerHTML = `住所：${fullAddress}`;
+                } else {
+                    document.getElementById("result").innerHTML = "該当する住所が見つかりません。";
+                }
+            } catch (error) {
+                document.getElementById("result").innerHTML = "エラーが発生しました：" + error.message;
+            }
         }
     </script>
 </body>
 </html>
+
