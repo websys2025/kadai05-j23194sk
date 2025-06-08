@@ -7,22 +7,6 @@
 * リクエストとレスポンスのフォーマット
 * zipcode（必須）：検索したい郵便番号（例：1000001）
 * 例：https://zipcloud.ibsnet.co.jp/api/search?zipcode=1000001
-* {
-  "message": null,
-  "results": [
-    {
-      "zipcode": "1000001",
-      "prefcode": "13",
-      "address1": "東京都",
-      "address2": "千代田区",
-      "address3": "千代田",
-      "kana1": "トウキョウト",
-      "kana2": "チヨダク",
-      "kana3": "チヨダ"
-    }
-  ],
-  "status": 200
-}
 
 ### Q3-2. 各自で調査したAPIについて説明せよ。
 * APIの名称と参照URL
